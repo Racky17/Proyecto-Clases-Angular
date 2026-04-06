@@ -12,5 +12,12 @@ products() {
 throw new Error('Method not implemented.');
 }
   product = input<IProduct[]>([], { alias: 'datos' });
+  imageWidth = 50;
+  imageHeight = 50;
+  imageMargin = 10;
+  showImage = false;
 
+  toggleImage(): void {
+    this.showImage = !this.showImage;
+  }
 }

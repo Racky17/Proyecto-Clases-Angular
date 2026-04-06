@@ -15,9 +15,9 @@
                         <thead>    
                             <tr>  
                                 <th>
-                                    <button class="btn btn-primary">
-                                        ocultar imagenes
-                                         
+                                    <button class="btn btn-primary"(click)="toggleImage()">
+                                        <i class="bi bi-eye-slash"></i>
+                                        {{ showImage ? 'Ocultar' : 'Mostrar' }} Imagen                                         
                                     </button>
                                 </th>
                                 <th>Producto</th>
@@ -31,7 +31,13 @@
                                 @for (producto of product(); track producto) {
                                     <tr>
                                         <td>
-                                            <img src="{{ producto.imageUrl }}" alt="{{ producto.productName }}">
+                                            @if (showImage){
+                                            <img [src]="producto.imageUrl" 
+                                                    [alt]="producto.productName" 
+                                                    [style.width.px]="imageWidth"
+                                                    [style.height.px]="imageHeight"
+                                                    [style.margin.px]="imageMargin">
+                                            }
                                         </td>
                                         <td>{{ producto.productName }}</td>
                                         <td>{{ producto.productCode }}</td>

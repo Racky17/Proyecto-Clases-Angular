@@ -14,7 +14,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class App {
   protected readonly title = signal('ACME Company Catalog');
-  getTitle() {return this.title();}
   listFilter = signal ("");
   products = signal <IProduct []>([{
     
