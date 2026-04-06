@@ -1,0 +1,50 @@
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-2">filtrar por:</div>
+            <div class="col-lg-2">
+                <input type="text">
+            </div>
+        </div>
+        <div class="card border-primary mb-3 text-center">
+            <div class="card-header">Lista de Productos</div>
+            <div class="card-body text-primary">
+                <div class="table-responsive">
+                    @if (products() && products().length) {
+                    <table class="table">
+                        <thead>    
+                            <tr>  
+                                <th>
+                                    <button class="btn btn-primary"></button>
+                                </th>
+                                <th>Producto</th>
+                                <th>Codigo</th>
+                                <th>Disponible</th>
+                                <th>Precio</th>
+                                <th>Rating</th>
+                            </tr>  
+                        </thead>    
+                            <tbody>
+                                @for (producto of products; track producto) {
+                                    <tr>
+                                        <td>
+                                            <img src="{{ producto.imageUrl }}" alt="{{ producto.productName }}">
+                                        </td>
+                                        <td>{{ producto.productName }}</td>
+                                        <td>{{ producto.productCode }}</td>
+                                        <td>{{ producto.releaseDate }}</td>
+                                        <td>${{ producto.price }}</td>
+                                        <td>{{ producto.startRating }}</td>
+                                    </tr>
+                                }
+                            </tbody>    
+                    </table>
+                    } @else {
+                        <p>No hay productos</p>
+                    }      
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

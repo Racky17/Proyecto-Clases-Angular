@@ -7,46 +7,7 @@
     </div>
 </nav>
 
-<div class="card">
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-2">filtrar por:</div>
-            <div class="col-lg-2">
-                <input type="text">
-            </div>
-        </div>
-        <div class="card border-primary mb-3 text-center">
-            <div class="card-header">Lista de Productos</div>
-            <div class="card-body text-primary">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>    
-                            <tr>  
-                                <th>
-                                    <button class="btn btn-primary"></button>
-                                </th>
-                                <th>Producto</th>
-                                <th>Codigo</th>
-                                <th>Disponible</th>
-                                <th>Precio</th>
-                                <th>Rating</th>
-                            </tr>  
-                        </thead>    
-                            <tbody>
-                                <tr>  
-                                    <td>Imagen</td>
-                                    <td>Nombre de Producto</td>
-                                    <td>Codigo de Producto</td>
-                                    <td>Fecha actualizacion</td>
-                                    <td>Precio</td>
-                                    <td>Rating</td>
-                                </tr>
-                            </tbody>    
-                    </table>      
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<app-product-list [datos]="products"></app-product-list>
+
 
 
