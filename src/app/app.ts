@@ -1,20 +1,21 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { allIcons } from 'ngx-bootstrap-icons';
 import { IProduct } from './product';
 import { ProductList } from "./product/product-list/product-list";
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.html',
   styleUrl: './app.css',
-  imports: [ProductList]
+  imports: [ProductList, FormsModule],
 })
 export class App {
   protected readonly title = signal('ACME Company Catalog');
-
-  products: IProduct[] = [{
+  listFilter = signal ("");
+  products = signal <IProduct []>([{
     
     productId: 1,
     productName: "Zapatillas de lona",
@@ -74,6 +75,11 @@ export class App {
     description: "Monitoreo de ritmo cardíaco, GPS integrado y resistencia al agua 5ATM.",
     startRating: 4,
     imageUrl: "Reloj Inteligente Fit.png"
-  }];
+  }]);
 
+  filteredProducts = computed(() =>
+    this.products().filter(p =>
+      p.productName.toLocaleLowerCase().includes(this.listFilter().toLocaleLowerCase())
+    )
+  );
 }

@@ -11,12 +11,14 @@
             <div class="card-header">Lista de Productos</div>
             <div class="card-body text-primary">
                 <div class="table-responsive">
-                    @if (products() && products().length) {
                     <table class="table">
                         <thead>    
                             <tr>  
                                 <th>
-                                    <button class="btn btn-primary"></button>
+                                    <button class="btn btn-primary">
+                                        ocultar imagenes
+                                         
+                                    </button>
                                 </th>
                                 <th>Producto</th>
                                 <th>Codigo</th>
@@ -26,7 +28,7 @@
                             </tr>  
                         </thead>    
                             <tbody>
-                                @for (producto of products; track producto) {
+                                @for (producto of product(); track producto) {
                                     <tr>
                                         <td>
                                             <img src="{{ producto.imageUrl }}" alt="{{ producto.productName }}">
@@ -40,9 +42,6 @@
                                 }
                             </tbody>    
                     </table>
-                    } @else {
-                        <p>No hay productos</p>
-                    }      
                 </div>
             </div>
         </div>
