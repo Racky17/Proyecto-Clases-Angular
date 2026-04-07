@@ -1,23 +1,25 @@
-import { Component,input } from '@angular/core';
+import { Component, Input, input} from '@angular/core';
 import { IProduct } from '../../product';
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-product-list',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './product-list.html',
   styleUrl: './product-list.css',
 })
 export class ProductList {
-products() {
-throw new Error('Method not implemented.');
-}
-  product = input<IProduct[]>([], { alias: 'datos' });
+datos = input<IProduct[]>([]);
+
   imageWidth = 50;
   imageHeight = 50;
   imageMargin = 10;
-  showImage = false;
+  showImage = true;
 
   toggleImage(): void {
     this.showImage = !this.showImage;
   }
+
+  
 }

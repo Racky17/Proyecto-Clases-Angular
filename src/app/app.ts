@@ -1,20 +1,20 @@
 import { Component, computed, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { allIcons } from 'ngx-bootstrap-icons';
 import { IProduct } from './product';
 import { ProductList } from "./product/product-list/product-list";
 import { FormsModule } from '@angular/forms';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.html',
   styleUrl: './app.css',
-  imports: [ProductList, FormsModule],
+  imports: [ProductList, FormsModule,],
 })
 export class App {
-  protected readonly title = signal('ACME Company Catalog');
-  listFilter = signal ("");
+  protected readonly title = signal('COMPAÑIA ACME');
+  listFilter = signal<string>('');
   products = signal <IProduct []>([{
     
     productId: 1,
@@ -79,7 +79,7 @@ export class App {
 
   filteredProducts = computed(() =>
     this.products().filter(p =>
-      p.productName.toLocaleLowerCase().includes(this.listFilter().toLocaleLowerCase())
+      p.productName.toLowerCase().includes(this.listFilter().toLowerCase())
     )
   );
 }

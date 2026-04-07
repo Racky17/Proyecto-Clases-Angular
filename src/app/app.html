@@ -6,8 +6,28 @@
         <h1 id="titulo">{{ title() }}</h1>
     </div>
 </nav>
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-2">filtrar por:</div>
+            <div class="col-lg-2">
+                <input type="text" 
+                    [value]="listFilter()" 
+                    (input)="listFilter.set($any($event.target).value)" 
+                    placeholder="Filtrar por...">
+            </div>
+            <div class="col-md-8">
+                <p>Filtrando por: {{ listFilter() }}</p>
+            </div>
+        </div>
+        <app-product-list [datos]="filteredProducts()"></app-product-list>
+    </div>
+</div>
 
-<app-product-list [datos]="filteredProducts()"></app-product-list>
+
+<pre>DEBUG: Hay {{ filteredProducts().length }} productos filtrados</pre>
+
+
 
 
 

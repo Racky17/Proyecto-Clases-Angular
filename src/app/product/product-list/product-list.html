@@ -1,12 +1,4 @@
 
-<div class="card">
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-2">filtrar por:</div>
-            <div class="col-lg-2">
-                <input type="text">
-            </div>
-        </div>
         <div class="card border-primary mb-3 text-center">
             <div class="card-header">Lista de Productos</div>
             <div class="card-body text-primary">
@@ -28,7 +20,7 @@
                             </tr>  
                         </thead>    
                             <tbody>
-                                @for (producto of product(); track producto) {
+                                @for (producto of datos(); track producto.productId) {
                                     <tr>
                                         <td>
                                             @if (showImage){
@@ -51,5 +43,3 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
