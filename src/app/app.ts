@@ -1,9 +1,7 @@
 import { Component, computed, signal } from '@angular/core';
-import { allIcons } from 'ngx-bootstrap-icons';
 import { IProduct } from './product';
 import { ProductList } from "./product/product-list/product-list";
 import { FormsModule } from '@angular/forms';
-import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
