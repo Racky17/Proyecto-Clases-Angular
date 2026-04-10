@@ -19,15 +19,17 @@
             <div class="col-md-8">
                 <p>Filtrando por: {{ listFilter() }}</p>
             </div>
+            <div class="col-md-4">
+                <button class="btn btn-primary" (click)="toggleChildren()">
+                    <i class="bi bi-eye"></i>
+                    {{ showChildren() ? 'Ocultar' : 'Mostrar' }} Hijo                                         
+                </button>
+            </div>
         </div>
+        @if (showChildren()){
         <app-product-list [datos]="filteredProducts()"></app-product-list>
+        }
     </div>
 </div>
-
-
-<pre>DEBUG: Hay {{ filteredProducts().length }} productos filtrados</pre>
-
-
-
 
 

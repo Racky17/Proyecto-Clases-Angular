@@ -1,11 +1,14 @@
 import { Component, Input, input} from '@angular/core';
 import { IProduct } from '../../product';
 import { FormsModule } from '@angular/forms';
+import { Star } from './star/star';
+import { UpperCasePipe, LowerCasePipe, DatePipe, CurrencyPipe } from '@angular/common';
+import { ImagePipe } from '../../shared/image-pipe';
 
 
 @Component({
   selector: 'app-product-list',
-  imports: [FormsModule],
+  imports: [FormsModule,Star, DatePipe, CurrencyPipe, UpperCasePipe, LowerCasePipe, ImagePipe],
   templateUrl: './product-list.html',
   styleUrl: './product-list.css',
 })
@@ -21,5 +24,19 @@ datos = input<IProduct[]>([]);
     this.showImage = !this.showImage;
   }
 
+  constructor() {
+    console.log('Hijo: constructor');
+  }
   
+  ngOnInit(): void{
+    console.log('Hijo: ngOnInit');
+  }
+
+  ngOnChanges(): void{
+    console.log('Hijo: ngOnChanges');
+  }
+
+  ngOnDestroy(): void{
+    console.log('Hijo: ngOnDestroy');
+  }
 }

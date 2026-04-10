@@ -3,6 +3,7 @@ import { IProduct } from './product';
 import { ProductList } from "./product/product-list/product-list";
 import { FormsModule } from '@angular/forms';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -21,7 +22,7 @@ export class App {
     releaseDate: "2023-01-01",
     price: 40000,
     description: "Zapatillas de lona cómodas y duraderas, marca Convers.",
-    startRating: 4,
+    startRating: 160,
     imageUrl: "zapatilla de lona.png"
   },
   {
@@ -31,7 +32,7 @@ export class App {
     releaseDate: "2023-05-15",
     price: 850000,
     description: "Pantalla AMOLED de 6.7 pulgadas, 128GB de almacenamiento y cámara pro.",
-    startRating: 5,
+    startRating: 200,
     imageUrl: "Smartphone Galaxy Z.png"
   },
   {
@@ -41,7 +42,7 @@ export class App {
     releaseDate: "2023-11-20",
     price: 120000,
     description: "Cafetera de acero inoxidable con espumador de leche integrado.",
-    startRating: 4,
+    startRating: 20,
     imageUrl: "Cafetera Express Pro.png"
   },
   {
@@ -51,7 +52,7 @@ export class App {
     releaseDate: "2024-01-10",
     price: 250000,
     description: "Cancelación de ruido activa y batería de hasta 40 horas de duración.",
-    startRating: 5,
+    startRating: 100,
     imageUrl: "Auriculares Noise Cancelling.png"
   },
   {
@@ -61,7 +62,7 @@ export class App {
     releaseDate: "2023-08-05",
     price: 45000,
     description: "Capacidad de 30L con compartimento acolchado para laptop de 15\".",
-    startRating: 3,
+    startRating: 80,
     imageUrl: "Mochila Impermeable.png"
   },
   {
@@ -71,7 +72,7 @@ export class App {
     releaseDate: "2024-02-28",
     price: 95000,
     description: "Monitoreo de ritmo cardíaco, GPS integrado y resistencia al agua 5ATM.",
-    startRating: 4,
+    startRating: 40,
     imageUrl: "Reloj Inteligente Fit.png"
   }]);
 
@@ -80,4 +81,25 @@ export class App {
       p.productName.toLowerCase().includes(this.listFilter().toLowerCase())
     )
   );
+
+  constructor() {
+    console.log('Padre: constructor');
+  }
+  
+  ngOnInit(): void{
+    console.log('Padre: ngOnInit');
+  }
+
+  ngOnChanges(): void{
+    console.log('Padre: ngOnChanges');
+  }
+
+  ngOnDestroy(): void{
+    console.log('Padre: ngOnDestroy');
+  }
+
+  showChildren = signal(true);
+  toggleChildren(): void {
+    this.showChildren.update(value => !value);
+  } 
 }
