@@ -8,6 +8,6 @@ export class ImagePipe implements PipeTransform {
     if (value){
       return value;
     }
-    return "sin image.png";
+    return "sinimage.png";
   }
 }

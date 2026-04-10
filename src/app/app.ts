@@ -43,7 +43,7 @@ export class App {
     price: 120000,
     description: "Cafetera de acero inoxidable con espumador de leche integrado.",
     startRating: 20,
-    imageUrl: "Cafetera Express Pro.png"
+    imageUrl: ""
   },
   {
     productId: 4,
