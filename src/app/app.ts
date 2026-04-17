@@ -1,105 +1,45 @@
 import { Component, computed, signal } from '@angular/core';
 import { IProduct } from './product';
-import { ProductList } from "./product/product-list/product-list";
+import { ProductList } from './product/product-list/product-list';
 import { FormsModule } from '@angular/forms';
-
+import { Product } from './product/product';
+import { Weather } from './services/weather';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.html',
   styleUrl: './app.css',
-  imports: [ProductList, FormsModule,],
+  imports: [ProductList, FormsModule],
 })
 export class App {
   protected readonly title = signal('COMPAÑIA ACME');
   listFilter = signal<string>('');
-  products = signal <IProduct []>([{
-    
-    productId: 1,
-    productName: "Zapatillas de lona",
-    productCode: "PROD001",
-    releaseDate: "2023-01-01",
-    price: 40000,
-    description: "Zapatillas de lona cómodas y duraderas, marca Convers.",
-    startRating: 160,
-    imageUrl: "zapatilla de lona.png"
-  },
-  {
-    productId: 2,
-    productName: "Smartphone Galaxy Z",
-    productCode: "TEC-002",
-    releaseDate: "2023-05-15",
-    price: 850000,
-    description: "Pantalla AMOLED de 6.7 pulgadas, 128GB de almacenamiento y cámara pro.",
-    startRating: 200,
-    imageUrl: "Smartphone Galaxy Z.png"
-  },
-  {
-    productId: 3,
-    productName: "Cafetera Express Pro",
-    productCode: "HOG-045",
-    releaseDate: "2023-11-20",
-    price: 120000,
-    description: "Cafetera de acero inoxidable con espumador de leche integrado.",
-    startRating: 20,
-    imageUrl: ""
-  },
-  {
-    productId: 4,
-    productName: "Auriculares Noise Cancelling",
-    productCode: "AUD-101",
-    releaseDate: "2024-01-10",
-    price: 250000,
-    description: "Cancelación de ruido activa y batería de hasta 40 horas de duración.",
-    startRating: 100,
-    imageUrl: "Auriculares Noise Cancelling.png"
-  },
-  {
-    productId: 5,
-    productName: "Mochila Impermeable",
-    productCode: "ACC-088",
-    releaseDate: "2023-08-05",
-    price: 45000,
-    description: "Capacidad de 30L con compartimento acolchado para laptop de 15\".",
-    startRating: 80,
-    imageUrl: "Mochila Impermeable.png"
-  },
-  {
-    productId: 6,
-    productName: "Reloj Inteligente Fit",
-    productCode: "TEC-009",
-    releaseDate: "2024-02-28",
-    price: 95000,
-    description: "Monitoreo de ritmo cardíaco, GPS integrado y resistencia al agua 5ATM.",
-    startRating: 40,
-    imageUrl: "Reloj Inteligente Fit.png"
-  }]);
+  products = signal<IProduct[]>([]);
+  weatherData = signal<any>(null);
+
+  constructor(
+    private productSevice: Product,
+    private weatherService: Weather,
+  ) {}
+
+  ngOnInit(): void {
+    this.products.set(this.productSevice.getProducts());
+
+    this.weatherService.getWeather('Chillan', 'CL').subscribe((data) => {
+      console.log(data);
+      this.weatherData.set(data);
+    });
+  }
 
   filteredProducts = computed(() =>
-    this.products().filter(p =>
-      p.productName.toLowerCase().includes(this.listFilter().toLowerCase())
-    )
+    this.products().filter((p) =>
+      p.productName.toLowerCase().includes(this.listFilter().toLowerCase()),
+    ),
   );
-
-  constructor() {
-    console.log('Padre: constructor');
-  }
-  
-  ngOnInit(): void{
-    console.log('Padre: ngOnInit');
-  }
-
-  ngOnChanges(): void{
-    console.log('Padre: ngOnChanges');
-  }
-
-  ngOnDestroy(): void{
-    console.log('Padre: ngOnDestroy');
-  }
 
   showChildren = signal(true);
   toggleChildren(): void {
-    this.showChildren.update(value => !value);
-  } 
+    this.showChildren.update((value) => !value);
+  }
 }
