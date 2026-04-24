@@ -24,7 +24,10 @@ export class App {
   ) {}
 
   ngOnInit(): void {
-    this.products.set(this.productSevice.getProducts());
+    this.productSevice.getProducts().subscribe((products: IProduct[]) => {
+      this.products.set(products);
+      console.log(this.products());
+    });
 
     this.weatherService.getWeather('Chillan', 'CL').subscribe((data) => {
       console.log(data);
@@ -41,5 +44,19 @@ export class App {
   showChildren = signal(true);
   toggleChildren(): void {
     this.showChildren.update((value) => !value);
+  }
+
+  crearProducto() {
+    let datos: any = {
+      name: `Producto Nuevo ${Math.round(Math.random() * (100 - 1) + 1)}`,
+      code: this.productService.generateProductCode(),
+      date: '2024-01-01',
+      price: Math.round(Math.random() * (40000 - 10000) + 10000),
+      description: 'Descripción del producto nuevo',
+      rate: Math.round(Math.random() * (200 - 1) + 1),
+      image: 'gamuza_hush.jpg',
+    };
+
+    this.guardarProducto(datos);
   }
 }
