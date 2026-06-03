@@ -49,7 +49,7 @@ export class App {
   crearProducto() {
     let datos: any = {
       name: `Producto Nuevo ${Math.round(Math.random() * (100 - 1) + 1)}`,
-      code: this.productService.generateProductCode(),
+      code: this.productSevice.generateProductCode(),
       date: '2024-01-01',
       price: Math.round(Math.random() * (40000 - 10000) + 10000),
       description: 'Descripción del producto nuevo',
@@ -57,6 +57,6 @@ export class App {
       image: 'gamuza_hush.jpg',
     };
 
-    this.guardarProducto(datos);
+    this.crearProducto(datos);
   }
 }
