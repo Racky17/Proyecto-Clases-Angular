@@ -1,0 +1,22 @@
+<div class="card">
+  <div class="card-header">
+    <h1 class="h4 mb-0">Dashboard — Ventas de Productos</h1>
+  </div>
+  <div class="card-body">
+    <h4 class="card-title border-bottom pb-2">Top 5 productos por ranking</h4>
+    <ngx-charts-bar-horizontal
+      [view]="[900, 350]"
+      [results]="saleData()"
+      [scheme]="colorScheme"
+      [gradient]="true"
+      [xAxis]="true"
+      [yAxis]="true"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      [legend]="true"
+      legendTitle="Ranking"
+      xAxisLabel="Ranking"
+      yAxisLabel="Producto">
+    </ngx-charts-bar-horizontal>
+  </div>
+</div>

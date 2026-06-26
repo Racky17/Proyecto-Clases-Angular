@@ -1,0 +1,66 @@
+<div class="login-wrapper">
+  <div class="card login-card shadow">
+    <div class="card-body p-4">
+      <div class="text-center mb-4">
+        <img src="Logo_Acme_Catalogo.jpg" alt="ACME Logo" width="120" height="120" />
+        <h2 class="h4 mt-2">Compañía ACME</h2>
+        <p class="text-muted">Inicia sesión para continuar</p>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="login()">
+        <div class="mb-3">
+          <label for="email" class="form-label">Correo electrónico</label>
+          <input
+            id="email"
+            type="email"
+            class="form-control"
+            formControlName="email"
+            placeholder="usuario@acme.cl"
+          />
+          @if (form.controls.email.touched && form.controls.email.invalid) {
+            <small class="text-danger">Ingresa un correo válido.</small>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña</label>
+          <input
+            id="password"
+            type="password"
+            class="form-control"
+            formControlName="password"
+            placeholder="••••••••"
+          />
+          @if (form.controls.password.touched && form.controls.password.invalid) {
+            <small class="text-danger">La contraseña es obligatoria.</small>
+          }
+        </div>
+
+        @if (error()) {
+          <div class="alert alert-danger py-2">{{ error() }}</div>
+        }
+
+        <button type="submit" class="btn btn-primary w-100" [disabled]="loading()">
+          {{ loading() ? 'Ingresando...' : 'Ingresar' }}
+        </button>
+      </form>
+
+      <div class="d-flex align-items-center my-3">
+        <hr class="flex-grow-1" />
+        <span class="px-2 text-muted small">o</span>
+        <hr class="flex-grow-1" />
+      </div>
+
+      @if (hasGoogle) {
+        <div class="d-flex justify-content-center">
+          <div #googleBtn></div>
+        </div>
+      } @else {
+        <p class="text-center text-muted small mb-0">
+          Login con Google no configurado
+          (<code>googleClientId</code> vacío en <code>environment.ts</code>).
+        </p>
+      }
+    </div>
+  </div>
+</div>

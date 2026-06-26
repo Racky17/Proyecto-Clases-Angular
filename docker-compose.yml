@@ -1,0 +1,58 @@
+# ============================================================
+#  Compañía ACME - Orquestación de contenedores
+#  db (MariaDB) + backend (Express) + frontend (Angular/nginx)
+# ============================================================
+services:
+  # ---------- Base de datos ----------
+  db:
+    image: mariadb:10.6
+    container_name: acme-db
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: acmeroot
+      MARIADB_DATABASE: acme
+    # Sin 'ports': la BD NO se expone al host. Solo es accesible por el backend
+    # a través de la red interna de Compose (el servidor solo permite 8075/8076).
+    volumes:
+      - db_data:/var/lib/mysql
+      # Carga el esquema + datos solo en la primera inicialización.
+      - ./Backend/database/acme.sql:/docker-entrypoint-initdb.d/acme.sql:ro
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  # ---------- Backend (API) ----------
+  backend:
+    build: ./Backend
+    container_name: acme-backend
+    restart: unless-stopped
+    environment:
+      PORT: 3000
+      DB_HOST: db # nombre del servicio en la red de compose
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: acmeroot
+      DB_NAME: acme
+      JWT_SECRET: acme-secret-key-cambiar-en-produccion
+      # Mismo Client ID que googleClientId del frontend (vacío = login Google off).
+      GOOGLE_CLIENT_ID: "930384574426-dh3urq7l2h4ldnk4djhmiqg7ccfbvc40.apps.googleusercontent.com"
+    ports:
+      - "8076:3000" # puerto 2 del servidor -> API
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # ---------- Frontend (Angular servido por nginx) ----------
+  frontend:
+    build: ./Frontend
+    container_name: acme-frontend
+    restart: unless-stopped
+    ports:
+      - "8075:80" # puerto 1 del servidor -> app web
+    depends_on:
+      - backend
+
+volumes:
+  db_data:

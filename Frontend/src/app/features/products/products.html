@@ -1,0 +1,51 @@
+<div class="card">
+  <div class="card-body">
+    <div class="row align-items-center mb-3">
+      <div class="col-md-2 fw-bold">Filtrar por:</div>
+      <div class="col-lg-3">
+        <input
+          type="text"
+          class="form-control"
+          [value]="listFilter()"
+          (input)="listFilter.set($any($event.target).value)"
+          placeholder="Filtrar por nombre..."
+        />
+      </div>
+      <div class="col-md-3">
+        <p class="mb-0">Filtrando por: {{ listFilter() }}</p>
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-primary" (click)="crearProducto()">Crear Producto</button>
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-outline-primary" (click)="toggleChildren()">
+          <i class="bi bi-eye"></i>
+          {{ showChildren() ? 'Ocultar' : 'Mostrar' }} Lista
+        </button>
+      </div>
+    </div>
+
+    @if (showChildren()) {
+      <app-product-list [datos]="filteredProducts()"></app-product-list>
+    }
+
+    @if (weatherData()) {
+      <div class="card card-body mt-3">
+        <h2 class="h4">
+          Datos del clima para {{ weatherData().name }}
+          @for (i of weatherData().weather; track $index) {
+            <img
+              src="https://openweathermap.org/img/w/{{ i.icon }}.png"
+              alt="{{ i.description }}"
+              width="60px"
+              height="60px"
+            />
+          }
+        </h2>
+        <p class="mb-0">Temperatura: {{ weatherData().main.temp }} °C</p>
+        <p class="mb-0">Presión: {{ weatherData().main.pressure }} hPa</p>
+        <p class="mb-0">Humedad: {{ weatherData().main.humidity }} %</p>
+      </div>
+    }
+  </div>
+</div>

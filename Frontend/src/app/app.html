@@ -1,62 +1,42 @@
-<nav class="navbar navbar-expand navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">
-    <img src="Logo_Acme_Catalogo.jpg" alt="ACME Logo" width="200" height="200" />
-  </a>
-  <div>
-    <h1 id="titulo">{{ title() }}</h1>
-  </div>
-</nav>
-<div class="card">
-  <div class="card-body">
-    <div class="row">
-      <div class="col-md-2">filtrar por:</div>
-      <div class="col-lg-2">
-        <input
-          type="text"
-          [value]="listFilter()"
-          (input)="listFilter.set($any($event.target).value)"
-          placeholder="Filtrar por..."
-        />
-      </div>
-      <div class="col-md-4">
-        <div class="col-md-8">
-          <p>Filtrando por: {{ listFilter() }}</p>
-        </div>
-        <div class="col-md-2">
-          <button class="btn btn-primary" (click)="crearProducto()">Crear Producto</button>
-        </div>
-        <div class="col-md-4">
-          <button class="btn btn-primary" (click)="toggleChildren()">
-            <i class="bi bi-eye"></i>
-            {{ showChildren() ? 'Ocultar' : 'Mostrar' }} Hijo
-          </button>
-        </div>
-      </div>
-      @if (showChildren()) {
-        <app-product-list [datos]="filteredProducts()"></app-product-list>
-      }
-      <br />
-      <div class="card card-body">
-        @if (weatherData()) {
-          <h1 class="h4">
-            Datos del clima para {{ weatherData().name }}
-            @for (i of weatherData().weather; track $index) {
-              <img
-                src="http://openweathermap.org/img/w/{{ i.icon }}.png"
-                alt="{{ i.description }}"
-                width="100px"
-                height="100px"
-              />
-            }
-          </h1>
-          <p>Ciudad: {{ weatherData().name }}</p>
-          <p>Latitud: {{ weatherData().coord.lat }}</p>
-          <p>Longitud: {{ weatherData().coord.lon }}</p>
-          <p>Temperatura: {{ weatherData().main.temp }}</p>
-          <p>Presión: {{ weatherData().main.pressure }}</p>
-          <p>Humedad: {{ weatherData().main.humidity }}</p>
-        }
-      </div>
-    </div>
-  </div>
+@if (auth.isAutenticated()) {
+  <nav class="navbar navbar-expand navbar-dark bg-primary px-3">
+    <a class="navbar-brand d-flex align-items-center" routerLink="/home">
+      <img src="Logo_Acme_Catalogo.jpg" alt="ACME Logo" width="60" height="60" />
+      <span id="titulo" class="ms-2 h4 mb-0">{{ title() }}</span>
+    </a>
+    <ul class="navbar-nav ms-auto d-flex flex-row align-items-center gap-3">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/home" routerLinkActive="active">Inicio</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/products" routerLinkActive="active">Productos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/products-pagination" routerLinkActive="active">Informes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/numbers" routerLinkActive="active">Virtual Scroll</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/users" routerLinkActive="active">Usuarios</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/maps" routerLinkActive="active">Mapa</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/products-sales" routerLinkActive="active">
+          <i class="bi bi-speedometer"></i> Dashboard
+        </a>
+      </li>
+      <li class="nav-item">
+        <button class="btn btn-outline-light btn-sm" (click)="logout()">
+          <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+        </button>
+      </li>
+    </ul>
+  </nav>
+}
+
+<div class="container-fluid mt-3">
+  <router-outlet></router-outlet>
 </div>

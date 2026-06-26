@@ -1,0 +1,56 @@
+<div class="card border-primary mb-3 text-center">
+  <div class="card-header">Lista de Productos (Paginada)</div>
+  <div class="card-body text-primary">
+    <div class="table-responsive">
+      <table class="table" bordered>
+        <thead>
+          <tr>
+            <th>Imagen</th>
+            <th>Producto</th>
+            <th>Código</th>
+            <th>Disponible</th>
+            <th>Precio</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (
+            producto of products()
+              | paginate: { itemsPerPage: itemsPerPage, currentPage: p(), totalItems: total() };
+            track producto.productId
+          ) {
+            <tr>
+              <td>
+                <img
+                  [src]="producto.image | defaultImage"
+                  [alt]="producto.productName"
+                  width="50"
+                  height="50"
+                />
+              </td>
+              <td>{{ producto.productName }}</td>
+              <td>{{ producto.productCode }}</td>
+              <td>{{ producto.releaseDate | date: 'dd/MM/yyyy' }}</td>
+              <td>${{ producto.price }}</td>
+              <td>
+                <button class="btn btn-success btn-sm"><i class="bi bi-eye"></i> Ver</button>
+                &nbsp;
+                <button class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i> Editar</button>
+                &nbsp;
+                <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Borrar</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <pagination-controls
+        (pageChange)="p.set($event)"
+        previousLabel="Anterior"
+        nextLabel="Siguiente">
+      </pagination-controls>
+    </div>
+  </div>
+</div>
