@@ -12,6 +12,11 @@ interface LoginResponse {
   usuario?: { id: number; email: string; nombre: string };
 }
 
+interface MensajeResponse {
+  ok: boolean;
+  mensaje: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -34,6 +39,19 @@ export class Auth {
     return this.http
       .post<LoginResponse>(`${environment.apiUrl}/auth/google`, { credential })
       .pipe(tap((resp) => this.persistSession(resp)));
+  }
+
+  // Desafío — Paso 1: solicita el envío del enlace de recuperación al correo.
+  solicitarRecuperacion(email: string): Observable<MensajeResponse> {
+    return this.http.post<MensajeResponse>(`${environment.apiUrl}/recuperar-password`, { email });
+  }
+
+  // Desafío — Paso 2: envía el token temporal y la nueva contraseña.
+  resetearPassword(token: string, password: string): Observable<MensajeResponse> {
+    return this.http.post<MensajeResponse>(`${environment.apiUrl}/reset-password`, {
+      token,
+      password,
+    });
   }
 
   // Guarda el token y marca la sesión como activa.

@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { Auth } from '../auth';
 import { environment } from '../../../../environments/environment';
 
@@ -8,7 +9,7 @@ declare const google: any;
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })

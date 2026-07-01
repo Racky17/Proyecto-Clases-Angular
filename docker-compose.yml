@@ -32,6 +32,15 @@ services:
       JWT_SECRET: acme-secret-key-cambiar-en-produccion
       
       GOOGLE_CLIENT_ID: "930384574426-dh3urq7l2h4ldnk4djhmiqg7ccfbvc40.apps.googleusercontent.com"
+
+      # ---- Envío de Email (Nodemailer + Gmail OAuth2) ----
+      EMAIL_USER: "${EMAIL_USER:-}"
+      EMAIL_CLIENT_ID: "${EMAIL_CLIENT_ID:-}"
+      EMAIL_CLIENT_SECRET: "${EMAIL_CLIENT_SECRET:-}"
+      EMAIL_REDIRECT_URI: "https://developers.google.com/oauthplayground"
+      EMAIL_REFRESH_TOKEN: "${EMAIL_REFRESH_TOKEN:-}"
+      # URL pública del frontend (para el enlace de recuperación de contraseña).
+      FRONTEND_URL: "http://pacheco.chillan.ubiobio.cl:8075"
     ports:
       - "8076:3000"
     depends_on:
